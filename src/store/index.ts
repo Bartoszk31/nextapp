@@ -1,7 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import { tilesApi } from '@/features/tiles/services/tilesService'
+
 const store = configureStore({
-  reducer: {}
+  reducer: {
+    [tilesApi.reducerPath]: tilesApi.reducer
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(tilesApi.middleware)
 })
 
 export default store
