@@ -1,12 +1,19 @@
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
+import { ThemeProvider, CssBaseline } from '@mui/material'
+import { createTheme } from '@mui/material/styles'
 
 import store from '@/store'
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <Provider store={store}>
+const theme = createTheme()
+
+const App = ({ Component, pageProps }: AppProps) => (
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Component {...pageProps} />
-    </Provider>
-  )
-}
+    </ThemeProvider>
+  </Provider>
+)
+
+export default App

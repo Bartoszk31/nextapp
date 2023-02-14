@@ -1,4 +1,6 @@
 import React from 'react'
+
+import MainLayout from '@/layouts/main/MainLayout'
 import { useGetTilesQuery } from '@/features/tiles/services/tilesService'
 
 const TilesView = () => {
@@ -9,13 +11,11 @@ const TilesView = () => {
   }
 
   return (
-    <div>
+    <MainLayout>
       {data && data.map(tile => (
-        <div>
-          {tile.title}
-        </div>
+        <div>{tile.title}</div>
       ))}
-    </div>
+    </MainLayout>
   )
 }
 
