@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import { tilesApi } from '@/features/tiles/services/tilesService'
+import tilesSlice from '@/features/tiles/reducers/tilesSlice'
 
 const store = configureStore({
   reducer: {
-    [tilesApi.reducerPath]: tilesApi.reducer
+    [tilesApi.reducerPath]: tilesApi.reducer,
+    [tilesSlice.name]: tilesSlice.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(tilesApi.middleware)
 })

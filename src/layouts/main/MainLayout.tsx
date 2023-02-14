@@ -6,7 +6,8 @@ import {
   Typography,
   Divider,
   List,
-  Container
+  Container,
+  Paper
 } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import SettingsIcon from '@mui/icons-material/Settings'
@@ -72,6 +73,7 @@ const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
       <Box
         component="main"
         sx={{
+          backgroundColor: (theme) => theme.palette.grey[100],
           flexGrow: 1,
           height: '100vh',
           overflow: 'auto'
@@ -79,7 +81,9 @@ const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          {children}
+          <Paper sx={{ p: 2 }}>
+            {children}
+          </Paper>
         </Container>
       </Box>
     </Box>

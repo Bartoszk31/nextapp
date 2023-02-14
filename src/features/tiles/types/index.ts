@@ -6,7 +6,12 @@ type Tile = {
 
 type TilesResponse = Tile[]
 
+type TileWithId = Tile & {
+  id: string
+}
+
 export type {
   Tile,
-  TilesResponse
+  TilesResponse,
+  TileWithId
 }
