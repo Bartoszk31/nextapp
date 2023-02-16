@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { TileWithId } from '@/features/tiles/types'
+import { Tile, TileFormData } from '@/features/tiles/types'
 import { tilesApi } from '@/features/tiles/services/tilesService'
 import getHashFromObject from '@/utils/getHashFromObject'
 import { ITEMS_PER_PAGE } from '@/features/tiles/constants'
 
 type State = {
-  tiles: TileWithId[]
-  filteredTiles: TileWithId[]
+  tiles: Tile[]
+  filteredTiles: Tile[]
   totalCount: number
   page: number
   searchPhrase: string
@@ -39,6 +39,13 @@ const tilesSlice = createSlice({
         tile => tile.title.toLocaleLowerCase().includes(state.searchPhrase)
       )
       state.filteredTiles = filteredTiles.slice((state.page - 1) * ITEMS_PER_PAGE, state.page * ITEMS_PER_PAGE)
+    },
+    addTile(state, action: PayloadAction<TileFormData>) {
+      const tile = {
+        ...action.payload,
+        id: getHashFromObject(action.payload)
+      }
+      state.tiles = [tile, ...state.tiles]
     }
   },
   extraReducers: (builder) => {
@@ -65,7 +72,8 @@ const tilesSlice = createSlice({
 
 export const {
   searchTiles,
-  setPage
+  setPage,
+  addTile
 } = tilesSlice.actions
 
 export default tilesSlice

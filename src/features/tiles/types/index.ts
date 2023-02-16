@@ -1,17 +1,23 @@
-type Tile = {
+type TileResponse = {
   title: string
   description: string
   imagePath: string
 }
 
-type TilesResponse = Tile[]
+type TilesResponse = TileResponse[]
 
-type TileWithId = Tile & {
+type Tile = TileResponse & {
   id: string
 }
 
+type TileFormData = {
+  title: string
+  description: string
+  imagePath: string
+}
+
 export type {
-  Tile,
   TilesResponse,
-  TileWithId
+  Tile,
+  TileFormData
 }

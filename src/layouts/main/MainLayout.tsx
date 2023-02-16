@@ -7,14 +7,19 @@ import {
   Divider,
   List,
   Container,
-  Paper
+  Paper,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText
 } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import MenuIcon from '@mui/icons-material/Menu'
 
 import AppBar from '@/components/AppBar'
 import Drawer from '@/components/Drawer'
-import Link from 'next/link'
+import NextLink from '@/components/NextLink'
+import HomeIcon from '@mui/icons-material/Home'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
   const [open, setOpen] = React.useState(false)
@@ -49,7 +54,7 @@ const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            <Link href="/">Tiles</Link>
+            <NextLink href="/">Tiles</NextLink>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -68,6 +73,22 @@ const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
         </Toolbar>
         <Divider />
         <List component="nav">
+          <NextLink href="/">
+            <ListItemButton>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Tiles" />
+            </ListItemButton>
+          </NextLink>
+          <NextLink href="/create-tile">
+            <ListItemButton>
+              <ListItemIcon>
+                <AddCircleOutlineIcon />
+              </ListItemIcon>
+              <ListItemText primary="Create Tile" />
+            </ListItemButton>
+          </NextLink>
           <Divider sx={{ my: 1 }} />
         </List>
       </Drawer>
