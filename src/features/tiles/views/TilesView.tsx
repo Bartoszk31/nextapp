@@ -1,33 +1,22 @@
-import React, { ChangeEvent } from 'react'
+import React from 'react'
+import { Divider } from '@mui/material'
 
 import MainLayout from '@/layouts/main/MainLayout'
-import { useGetTilesQuery } from '@/features/tiles/services/tilesService'
-import Tile from '@/features/tiles/components/Tile'
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { Input } from '@mui/material'
-import { getFilteredTiles } from '@/features/tiles/reducers/tilesSlice'
+import TilesPageWrapper from '@/features/tiles/components/TilesPageWrapper'
+import SearchBar from '@/features/tiles/components/SearchBar'
+import TilesSection from '@/features/tiles/components/TilesSection'
+import PaginationSection from '@/features/tiles/components/PaginationSection'
 
-const TilesView = () => {
-  const dispatch = useAppDispatch()
-  const { isLoading } = useGetTilesQuery()
-  const { filteredTiles } = useAppSelector(state => state.tiles)
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(getFilteredTiles(event.target.value))
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  return (
-    <MainLayout>
-      <Input onChange={handleChange} />
-      {filteredTiles.map(tile => (
-        <Tile key={tile.id} {...tile} />
-      ))}
-    </MainLayout>
-  )
-}
+const TilesView = () => (
+  <MainLayout>
+    <TilesPageWrapper>
+      <SearchBar />
+      <Divider />
+      <TilesSection />
+      <Divider />
+      <PaginationSection />
+    </TilesPageWrapper>
+  </MainLayout>
+)
 
 export default TilesView

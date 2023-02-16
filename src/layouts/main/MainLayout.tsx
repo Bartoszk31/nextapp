@@ -10,13 +10,14 @@ import {
   Paper
 } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import SettingsIcon from '@mui/icons-material/Settings'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import AppBar from '@/components/AppBar'
 import Drawer from '@/components/Drawer'
+import Link from 'next/link'
 
 const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const toggleDrawer = () => {
     setOpen(!open)
   }
@@ -39,7 +40,7 @@ const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
               ...(open && { display: 'none' }),
             }}
           >
-            <SettingsIcon />
+            <MenuIcon />
           </IconButton>
           <Typography
             component="h1"
@@ -48,7 +49,7 @@ const MainLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Tiles
+            <Link href="/">Tiles</Link>
           </Typography>
         </Toolbar>
       </AppBar>
