@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Tile, TileFormData } from '@/features/tiles/types'
+import { v4 as uuidv4 } from 'uuid'
+
+import getParsedTiles from '@/features/tiles/utils/getParsedTiles'
 import { tilesApi } from '@/features/tiles/services/tilesService'
-import getHashFromObject from '@/utils/getHashFromObject'
 import { ITEMS_PER_PAGE } from '@/features/tiles/constants'
+import { Tile, TileFormData } from '@/features/tiles/types'
 
 type State = {
   tiles: Tile[]
@@ -43,7 +45,7 @@ const tilesSlice = createSlice({
     addTile(state, action: PayloadAction<TileFormData>) {
       const tile = {
         ...action.payload,
-        id: getHashFromObject(action.payload)
+        id: uuidv4()
       }
       state.tiles = [tile, ...state.tiles]
     }
@@ -52,17 +54,7 @@ const tilesSlice = createSlice({
     builder.addMatcher(
       tilesApi.endpoints.getTiles.matchFulfilled,
       (state, { payload }) => {
-        state.tiles = payload.map(tile => {
-          const imagePath = new URL(tile.imagePath.replaceAll('&amp;', '&'))
-          imagePath.searchParams.set('w', '400')
-          imagePath.searchParams.set('q', '60')
-
-          return {
-            ...tile,
-            imagePath: imagePath.toString(),
-            id: getHashFromObject(tile)
-          }
-        })
+        state.tiles = getParsedTiles(payload)
         state.totalCount = payload.length
         state.filteredTiles = state.tiles.slice(0, ITEMS_PER_PAGE)
       }

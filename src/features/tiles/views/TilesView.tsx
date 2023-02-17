@@ -8,7 +8,7 @@ import TilesSection from '@/features/tiles/components/TilesSection'
 import PaginationSection from '@/features/tiles/components/PaginationSection'
 
 const TilesView = () => (
-  <MainLayout>
+  <MainLayout title="Tile list">
     <TilesPageWrapper>
       <SearchBar />
       <Divider />

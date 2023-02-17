@@ -6,8 +6,11 @@ import MainLayout from '@/layouts/main/MainLayout'
 import { useAppDispatch } from '@/hooks'
 import { addTile, searchTiles } from '@/features/tiles/reducers/tilesSlice'
 import { TileFormData } from '@/features/tiles/types'
+import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 const CreateTileView: FunctionComponent = () => {
+  const { push } = useRouter()
   const dispatch = useAppDispatch()
   const { register, handleSubmit } = useForm<TileFormData>({
     defaultValues: {
@@ -18,11 +21,13 @@ const CreateTileView: FunctionComponent = () => {
   })
   const handleAddTile = (data: TileFormData) => {
     dispatch(addTile(data))
+    toast.success('Tile created')
     dispatch(searchTiles(''))
+    push('/')
   }
 
   return (
-    <MainLayout>
+    <MainLayout title="Create tile">
       <form onSubmit={handleSubmit(handleAddTile)}>
         <Grid container justifyContent="center">
           <Grid xs={12} md={6} item>
